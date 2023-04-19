@@ -32,8 +32,15 @@ public class Uloziste {
     public void nacistStavZeSouboru(Path path)  throws IOException {
         // TODO
         // Načíst objekt UlozenyStav pomocí objectMapper.readValue(file, UlozenyStav.class)
+        UlozenyStav ulozenyStav = objectMapper.readValue(path.toFile(), UlozenyStav.class);
+
         // Získat z UlozenyStav souřadnice kočky a myši
+        Point souradniceKocky = ulozenyStav.getCat();
+        Point souradniceMysi = ulozenyStav.getMouse();
+
         // Zapsat tyto souřadnice do objektů kočky a myši pomocí setLocation()
+        cat.setLocation(souradniceKocky);
+        mouse.setLocation(souradniceMysi);
     }
 
     public void nacistStavZeSouboru() throws IOException {
@@ -41,10 +48,18 @@ public class Uloziste {
     }
 
     public void ulozitStavDoSouboru(Path path)  throws IOException {
-        // TODO
+        // TODO - udelat jako prvni, protoze nemuzu nic nacist, nez to nactu
         // Vytvořit objekt UlozenyStav
+        UlozenyStav ulozenyStav = new UlozenyStav();
+
         // Uložit do něj souřadnice kočky a myši – souřadnice získáte voláním getLocation()
+        //Point souradniceKocky = cat.getLocation(); - take se tak muze udelat, je to prehlednejsi, nebo rovnou zapsat dolu do zavorek tu druhou cast
+        //Point souradniceMysi = mouse.getLocation();
+
+        ulozenyStav.setCat(cat.getLocation());
+        ulozenyStav.setMouse(mouse.getLocation());
         // Uložit objekt UlozenyStav do souboru pomocí objectMapper.writeValue(file, object)
+        objectMapper.writeValue(path.toFile(), ulozenyStav);
     }
 
     public void ulozitStavDoSouboru() throws IOException {
